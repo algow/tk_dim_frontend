@@ -1,24 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import {
+  createBrowserRouter,
+  RouterProvider  
+} from "react-router-dom";
+import Login from './views/Login';
+import { JWT_LOCAL } from "./utils/constants";
+import Default from "./components/Default";
+// import { NavigateContext } from "./utils/context";
 
 function App() {
+  // const navigate = useNavigate();
+
+  const unrestrictedRoutes = createBrowserRouter([
+    {
+      path: "*",
+      element: <Default />
+    },
+    {
+      path: "/login",
+      element: <Login />
+    },
+  ]);
+
+  const restrictedRoutes = createBrowserRouter([
+    {
+      path: "*",
+      element: <Default />
+    },
+  ]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <> 
+    {
+      localStorage.getItem(JWT_LOCAL) ? (
+        // <NavigateContext.Provider value={{navigate}}> 
+          <RouterProvider router={restrictedRoutes} />
+        // </NavigateContext.Provider>
+      ) : (
+        // <NavigateContext.Provider value={{navigate}}> 
+          <RouterProvider router={unrestrictedRoutes} />
+        // </NavigateContext.Provider>
+      )
+    }
+    </>
   );
 }
 
