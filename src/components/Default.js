@@ -1,13 +1,10 @@
 import {useState} from 'react';
 import AppBar from '@mui/material/AppBar';
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Stack from '@mui/material/Stack';
 import { 
   Routes, 
   Route
@@ -51,9 +48,9 @@ export default function Album() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar position="relative">
+      <AppBar position="fixed">
         <Toolbar>
-          <Grid container spacing={2} direction="row">
+          <Grid container direction="row">
             <Grid container xs={7}>
               <Typography variant="h6" color="inherit" noWrap>
                 TK DIM
@@ -61,7 +58,6 @@ export default function Album() {
             </Grid>
             <Grid container xs={5} justifyContent="flex-end">
               <div>
-                {/* Jika user login tampilkan notif projects dan profil */}
                 {
                   isAuthenticated() ?
                   <>
@@ -122,7 +118,7 @@ export default function Album() {
         </Toolbar>
       </AppBar>
       <main>
-        <Box
+        {/* <Box
           sx={{
             bgcolor: 'background.paper',
             pt: 8,
@@ -153,7 +149,7 @@ export default function Album() {
               <Button variant="contained">Mulai</Button>
             </Stack>
           </Container>
-        </Box>
+        </Box> */}
         <Container sx={{ py: 8 }} maxWidth="md">
           <Routes>
           {

@@ -31,3 +31,38 @@ export const logout = (navigate) => {
   window.location.reload();
   navigate('/');
 };
+
+export function getNotifData(i) {
+  const notifRef = [
+    {
+      type: 'success',
+      message: 'Berhasil mengambil data'
+    },
+    {
+      type: 'success',
+      message: 'Field berhasil diupdate'
+    },
+    {
+      type: 'success',
+      message: 'Data berhasil direkam'
+    },
+    {
+      type: 'warning',
+      message: 'Something went wrong'
+    },
+    {
+      type: 'warning',
+      message: 'Wrong username/password'
+    },
+    {
+      type: 'success',
+      message: 'Successful login'
+    },
+    {
+      type: 'warning',
+      message: 'Gagal merekam data'
+    },
+  ];
+
+  return notifRef[i];
+}

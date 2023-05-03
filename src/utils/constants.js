@@ -5,5 +5,7 @@ const parent = 'http://localhost/tk_dim';
 
 export const API = {
   'login': () => parent + '/login',
-  'barang': () => parent + '/barang'
+  'barang': () => parent + '/barang',
+  'supplier': () => parent + '/supplier',
+  'pembelian': () => parent + '/pembelian'
 }
