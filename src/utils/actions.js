@@ -33,6 +33,18 @@ export const getSupplier = () => {
   });
 }
 
+export const getPembelian = () => {
+  return axios({
+    method: 'get',
+    url: API.pembelian(),
+    headers: {
+      Authorization: getUserData()['Token']
+    }
+  }).then(res => {
+    return res.data;
+  });
+}
+
 export const postPembelian = (data) => {
   return axios({
     method: 'post',

@@ -32,6 +32,14 @@ export const logout = (navigate) => {
   navigate('/');
 };
 
+export const ribuanSatuan = (nilai) => {
+  if (nilai == null) {
+    return 0
+  } else {
+    return nilai.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  }
+}
+
 export function getNotifData(i) {
   const notifRef = [
     {
@@ -61,6 +69,14 @@ export function getNotifData(i) {
     {
       type: 'warning',
       message: 'Gagal merekam data'
+    },
+    {
+      type: 'warning',
+      message: 'Gagal mengambil data'
+    },
+    {
+      type: 'warning',
+      message: 'Akses tidak diperbolehkan'
     },
   ];
 

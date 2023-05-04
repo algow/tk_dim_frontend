@@ -8,13 +8,18 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { postLogin } from '../utils/actions';
-import { setToken, setUserData } from '../utils/utils';
+import { getNotifData, setToken, setUserData } from '../utils/utils';
 import {useNavigate} from "react-router-dom";
+import { useContext } from "react";
+import { NotificationContext } from '../utils/context';
+
 
 const theme = createTheme();
 
 export default function SignIn() {
   localStorage.clear();
+
+  const {onOpenMessage} = useContext(NotificationContext);
 
   const navigate = useNavigate();
 
@@ -26,13 +31,24 @@ export default function SignIn() {
       password: fd.get('password'),
     };
 
-    const result = await postLogin(data);
-    const uData = result?.data;
-    const token = uData?.Token;
-    setUserData(uData);
-    setToken(token);
+    try {
+      const result = await postLogin(data);
 
-    navigate('/');
+      if(result.error) {
+        onOpenMessage(getNotifData(4));
+      } else {
+        const uData = result?.data;
+        const token = uData?.Token;
+        setUserData(uData);
+        setToken(token);
+  
+        onOpenMessage(getNotifData(5));
+        navigate('/');  
+
+      }
+    } catch (error) {
+      onOpenMessage(getNotifData(3));
+    }
   };
 
   return (

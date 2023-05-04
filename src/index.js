@@ -2,7 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+// import axios from 'axios';
+
 // import { BrowserRouter } from "react-router-dom";
+
+// axios.interceptors.response.use(res => {
+//   return res;
+// }, error => {
+//   if (error.response.status === 403) {
+//     window.location = '/';
+//   }
+//   return error;
+// });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

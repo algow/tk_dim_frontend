@@ -10,13 +10,15 @@ import {
   Route
 } from 'react-router-dom';
 import Barang from '../views/Barang';
-import { isAuthenticated, logout } from '../utils/utils';
+import { getUserData, isAuthenticated, logout } from '../utils/utils';
 import { Grid, IconButton, Menu, MenuItem } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LoginIcon from '@mui/icons-material/Login';
 import {useNavigate} from "react-router-dom";
+import Pembelian from '../views/Pembelian';
+import HomeIcon from '@mui/icons-material/Home';
 
 
 const theme = createTheme();
@@ -34,6 +36,10 @@ export default function Album() {
     {
       path: "/barang",
       element: <Barang />
+    },
+    {
+      path: "/pembelian",
+      element: <Pembelian />
     },
   ];
   
@@ -63,8 +69,15 @@ export default function Album() {
                   <>
                     <IconButton 
                       color="inherit" 
+                      aria-label="home"
+                      onClick={() => navigate('/')}  
+                    >
+                      <HomeIcon />
+                    </IconButton>
+                    <IconButton 
+                      color="inherit" 
                       aria-label="pembelian"
-                      // onClick={() => navigate('/projects')}  
+                      onClick={() => navigate('/pembelian')}  
                     >
                       <AddCircleIcon />
                     </IconButton>
@@ -100,7 +113,8 @@ export default function Album() {
                       open={Boolean(anchorEl)}
                       onClose={handleClose}
                     >
-                      <MenuItem onClick={handleClose}>Profile</MenuItem>
+                      <MenuItem onClick={handleClose}>{getUserData()['NamaPengguna']}</MenuItem>
+                      <MenuItem onClick={handleClose}>{getUserData()['NamaAkses']}</MenuItem>
                       <MenuItem onClick={() => logout(navigate)}>Sign Out</MenuItem>
                     </Menu>
                   </> :
@@ -118,39 +132,7 @@ export default function Album() {
         </Toolbar>
       </AppBar>
       <main>
-        {/* <Box
-          sx={{
-            bgcolor: 'background.paper',
-            pt: 8,
-            pb: 6,
-          }}
-        >
-          <Container maxWidth="sm">
-            <Typography
-              component="h2"
-              variant="h3"
-              align="center"
-              color="text.primary"
-              gutterBottom
-            >
-              Tugas Kelompok DIM
-            </Typography>
-            <Typography variant="h5" align="center" color="text.secondary" paragraph>
-              Something short and leading about the collection below—its contents,
-              the creator, etc. Make it short and sweet, but not too short so folks
-              don&apos;t simply skip over it entirely.
-            </Typography>
-            <Stack
-              sx={{ pt: 4 }}
-              direction="row"
-              spacing={2}
-              justifyContent="center"
-            >
-              <Button variant="contained">Mulai</Button>
-            </Stack>
-          </Container>
-        </Box> */}
-        <Container sx={{ py: 8 }} maxWidth="md">
+        <Container sx={{ py: 12 }} >
           <Routes>
           {
             routes.map( (item, index) => (
