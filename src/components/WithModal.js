@@ -18,7 +18,7 @@ const style = {
 export default function WithModal(WrappedComponent) {
   return (props) => {
 
-    const {open, onClose, modalContent, title} = props;
+    const {type, open, onClose, modalContent, title} = props;
     
     return (
       <Modal
@@ -32,7 +32,7 @@ export default function WithModal(WrappedComponent) {
             {title}
           </Typography>
 
-          <WrappedComponent data={modalContent} onClose={onClose}/>
+          <WrappedComponent type={type} data={modalContent} onClose={onClose} />
         </Box>
       </Modal>
     );

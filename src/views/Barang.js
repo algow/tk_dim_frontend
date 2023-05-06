@@ -11,7 +11,7 @@ import { getNotifData, getUserData } from '../utils/utils';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import { Divider } from '@mui/material';
-import PembelianForm from '../components/PembelianForm';
+import PembelianForm from '../components/forms/PembelianForm';
 import { NotificationContext } from '../utils/context';
 
 
@@ -127,7 +127,13 @@ export default function Barang() {
         </Grid>
       </Grid>
 
-      <PembelianForm open={openBeli} onClose={handleCloseBeli} modalContent={selectedBarang} title={modalTitle} />
+      <PembelianForm 
+        type='create'
+        open={openBeli} 
+        onClose={handleCloseBeli} 
+        modalContent={selectedBarang} 
+        title={modalTitle} 
+      />
     </>
   )
 }

@@ -3,11 +3,12 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { getPembelian } from '../utils/actions';
 import { getNotifData, ribuanSatuan } from '../utils/utils';
-import { Divider, IconButton, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogTitle, Divider, IconButton, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { NotificationContext } from '../utils/context';
 import { useNavigate } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import PembelianForm from '../components/forms/PembelianForm';
 
 
 export default function Pembelian() {
@@ -37,6 +38,27 @@ export default function Pembelian() {
       navigate('/');
     });
   }, []);
+
+  const [openEdit, setOpenEdit] = useState(false);
+  const [selectedPembelian, setSelectedPembelian] = useState({});
+  const [modalTitle, setModalTitle] = useState('');
+  const [openDelete, setOpenDelete] = useState(false);
+
+  const handleOpenDelete = () => {
+    setOpenDelete(true);
+  };
+
+  const handleCloseDelete = () => {
+    setOpenDelete(false);
+  };
+
+  const handleOpenEdit = (data) => {
+    setOpenEdit(true);
+    setSelectedPembelian(data);
+
+    setModalTitle('Ubah pembelian ' + data.NamaBarang);
+  };
+  const handleCloseEdit = () => setOpenEdit(false);
 
 
   return (
@@ -84,10 +106,18 @@ export default function Pembelian() {
                     <TableCell align="right">{ribuanSatuan(pembelian.NilaiPembelian)}</TableCell>
                     <TableCell align="left">
                       <Stack direction="row" spacing={1}>
-                        <IconButton color="primary" aria-label="ubah">
+                        <IconButton 
+                          color="primary" 
+                          aria-label="ubah"
+                          onClick={() => handleOpenEdit(pembelian)}
+                        >
                           <EditIcon />
                         </IconButton>
-                        <IconButton color="warning" aria-label="hapus">
+                        <IconButton 
+                          color="warning" 
+                          aria-label="hapus"
+                          onClick={() => handleOpenDelete()}
+                        >
                           <DeleteIcon />
                         </IconButton> 
                       </Stack>
@@ -99,6 +129,39 @@ export default function Pembelian() {
           </TableContainer>
         </Grid>
       </Grid>
+
+      <PembelianForm   
+        type='update'
+        open={openEdit} 
+        onClose={handleCloseEdit} 
+        modalContent={selectedPembelian} 
+        title={modalTitle} 
+      />
+
+      <Dialog
+        open={openDelete}
+        onClose={handleCloseDelete}
+        aria-labelledby="alert-dialog-title"
+      >
+        <DialogTitle id="alert-dialog-title">
+          Apakah anda yakin akan menghapus record ini?
+        </DialogTitle>
+        <DialogActions>
+          <Button 
+            variant="outlined"
+            onClick={() => console.log(1234)}
+          >
+            Hapus
+          </Button>
+          <Button 
+            onClick={handleCloseDelete}
+            variant="contained"
+          >
+            Batal
+          </Button>
+        </DialogActions>
+      </Dialog>
+
     </>
   )
 }

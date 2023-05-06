@@ -132,7 +132,7 @@ export default function Album() {
         </Toolbar>
       </AppBar>
       <main>
-        <Container sx={{ py: 12 }} >
+        <Container sx={{ py: 12 }} maxWidth="xl">
           <Routes>
           {
             routes.map( (item, index) => (

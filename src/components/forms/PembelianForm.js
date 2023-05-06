@@ -1,9 +1,9 @@
 import { Box, Button, InputLabel, MenuItem, Select, TextField } from "@mui/material";
-import WithModal from "./WithModal";
+import WithModal from "../WithModal";
 import { useContext, useEffect, useState } from "react";
-import { getSupplier, postPembelian } from "../utils/actions";
-import { NotificationContext } from "../utils/context";
-import { getNotifData } from "../utils/utils";
+import { getSupplier, postPembelian } from "../../utils/actions";
+import { NotificationContext } from "../../utils/context";
+import { getNotifData } from "../../utils/utils";
 
 function PembelianForm(props) {
   const [supplierList, setSupplierList] = useState([]);
@@ -24,12 +24,20 @@ function PembelianForm(props) {
     };
 
     try {
-      const pembelian = await postPembelian(data);
+      let pembelian = {};
 
-      if(pembelian.error) {
-        onOpenMessage(getNotifData(6));
+      if(props.type === 'create') {
+        pembelian = await postPembelian(data);
+      } else if (props.type === 'update') {
+        //
       } else {
+        pembelian['error'] = true;
+      }
+
+      if(pembelian.error === false) {
         onOpenMessage(getNotifData(2));
+      } else {
+        onOpenMessage(getNotifData(6));
       }
     } catch (error) {
       onOpenMessage(getNotifData(3));
@@ -39,6 +47,10 @@ function PembelianForm(props) {
   };
 
   useEffect(() => {
+    if(props.data?.IdSupplier) {
+      setSelectedSupplier(props.data.IdSupplier);
+    }
+
     async function supplier() {
       const data = await getSupplier();
 
@@ -50,8 +62,8 @@ function PembelianForm(props) {
     }
 
     supplier().catch(err => {
-      console.log(err);
-      // onOpenMessage(getNotifData(3));
+      // console.log(err);
+      onOpenMessage(getNotifData(3));
     });
   }, []);
 
@@ -72,6 +84,7 @@ function PembelianForm(props) {
           name="jumlah"
           type="number"
           autoComplete="jumlah"
+          value={props.data?.JumlahPembelian}
           autoFocus
         />
         <TextField
@@ -80,6 +93,7 @@ function PembelianForm(props) {
           fullWidth
           name="harga_satuan"
           label="Harga Satuan"
+          value={props.data?.HargaBeli}
           type="number"
           id="harga_satuan"
           autoComplete="harga_satuan"
@@ -107,7 +121,7 @@ function PembelianForm(props) {
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
         >
-          Sign In
+          Submit
         </Button>
       </Box>
     </>
