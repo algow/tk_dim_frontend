@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { getPembelian } from '../utils/actions';
+import { deletePembelian, getPembelian } from '../utils/actions';
 import { getNotifData, ribuanSatuan } from '../utils/utils';
 import { Button, Dialog, DialogActions, DialogTitle, Divider, IconButton, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { NotificationContext } from '../utils/context';
@@ -149,7 +149,20 @@ export default function Pembelian() {
         <DialogActions>
           <Button 
             variant="outlined"
-            onClick={() => console.log(1234)}
+            onClick={async () => {
+              try {
+                const pembelian = await deletePembelian(data);
+          
+                if(pembelian.error) {
+                  onOpenMessage(getNotifData(6));
+                } else {
+                  onOpenMessage(getNotifData(2));
+                }
+              } catch (error) {
+                onOpenMessage(getNotifData(3));
+              } 
+
+            } }
           >
             Hapus
           </Button>

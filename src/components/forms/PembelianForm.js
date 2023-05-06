@@ -1,9 +1,10 @@
 import { Box, Button, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import WithModal from "../WithModal";
 import { useContext, useEffect, useState } from "react";
-import { getSupplier, postPembelian } from "../../utils/actions";
+import { getSupplier, postPembelian, updatePembelian } from "../../utils/actions";
 import { NotificationContext } from "../../utils/context";
 import { getNotifData } from "../../utils/utils";
+
 
 function PembelianForm(props) {
   const [supplierList, setSupplierList] = useState([]);
@@ -29,7 +30,7 @@ function PembelianForm(props) {
       if(props.type === 'create') {
         pembelian = await postPembelian(data);
       } else if (props.type === 'update') {
-        //
+        pembelian = await updatePembelian(data);
       } else {
         pembelian['error'] = true;
       }

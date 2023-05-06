@@ -58,6 +58,34 @@ export const postPembelian = (data) => {
   });
 }
 
+
+export const updatePembelian = (data) => {
+  return axios({
+    method: 'post',
+    url: API.updatePembelian(),
+    headers: {
+      Authorization: getUserData()['Token']
+    },
+    data
+  }).then(res => {
+    return res.data;
+  });
+}
+
+export const deletePembelian = (data) => {
+  return axios({
+    method: 'post',
+    url: API.deletePembelian(),
+    headers: {
+      Authorization: getUserData()['Token']
+    },
+    data
+  }).then(res => {
+    return res.data;
+  });
+}
+
+
 export const postPenjualan = (data) => {
   return axios({
     method: 'post',
@@ -90,6 +118,18 @@ export const getPelanggan = (data) => {
     headers: {
       Authorization: getUserData()['Token']
     },
+  }).then(res => {
+    return res.data;
+  });
+}
+
+export const getLaba = () => {
+  return axios({
+    method: 'get',
+    url: API.laba(),
+    headers: {
+      Authorization: getUserData()['Token']
+    }
   }).then(res => {
     return res.data;
   });

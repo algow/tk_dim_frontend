@@ -9,5 +9,8 @@ export const API = {
   'supplier': () => parent + '/supplier',
   'pembelian': () => parent + '/pembelian',
   'penjualan': () => parent + '/penjualan',
-  'pelanggan': () => parent + '/pelanggan'
+  'pelanggan': () => parent + '/pelanggan',
+  'updatePembelian': () => parent + '/pembelian-update',
+  'deletePembelian': () => parent + '/pembelian-delete',
+  'laba': () => parent + '/labarugi'
 }
