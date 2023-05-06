@@ -12,5 +12,6 @@ export const API = {
   'pelanggan': () => parent + '/pelanggan',
   'updatePembelian': () => parent + '/pembelian-update',
   'deletePembelian': () => parent + '/pembelian-delete',
-  'laba': () => parent + '/labarugi'
+  'laba': () => parent + '/labarugi',
+  'stok': () => parent + '/stok'
 }

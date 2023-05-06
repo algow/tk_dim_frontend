@@ -19,8 +19,9 @@ import LoginIcon from '@mui/icons-material/Login';
 import {useNavigate} from "react-router-dom";
 import Pembelian from '../views/Pembelian';
 import Penjualan from '../views/Penjualan';
+import Dashboard from '../views/Dashboard';
 import HomeIcon from '@mui/icons-material/Home';
-
+import AirplayIcon from '@mui/icons-material/Airplay';
 
 const theme = createTheme();
 
@@ -45,6 +46,10 @@ export default function Album() {
     {
       path: "/penjualan",
       element: <Penjualan />
+    },
+    {
+      path: "/dashboard",
+      element: <Dashboard />
     },
   ];
   
@@ -78,6 +83,13 @@ export default function Album() {
                       onClick={() => navigate('/')}  
                     >
                       <HomeIcon />
+                    </IconButton>
+                    <IconButton 
+                      color="inherit" 
+                      aria-label="dashboard"
+                      onClick={() => navigate('/dashboard')}  
+                    >
+                      <AirplayIcon  />
                     </IconButton>
                     <IconButton 
                       color="inherit" 

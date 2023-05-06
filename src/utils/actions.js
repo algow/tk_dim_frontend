@@ -134,3 +134,14 @@ export const getLaba = () => {
     return res.data;
   });
 }
+export const getStok = () => {
+  return axios({
+    method: 'get',
+    url: API.stok(),
+    headers: {
+      Authorization: getUserData()['Token']
+    }
+  }).then(res => {
+    return res.data;
+  });
+}
