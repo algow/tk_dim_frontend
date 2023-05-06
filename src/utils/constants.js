@@ -7,5 +7,7 @@ export const API = {
   'login': () => parent + '/login',
   'barang': () => parent + '/barang',
   'supplier': () => parent + '/supplier',
-  'pembelian': () => parent + '/pembelian'
+  'pembelian': () => parent + '/pembelian',
+  'penjualan': () => parent + '/penjualan',
+  'pelanggan': () => parent + '/pelanggan'
 }

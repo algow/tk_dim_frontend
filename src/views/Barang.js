@@ -12,6 +12,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import { Divider } from '@mui/material';
 import PembelianForm from '../components/forms/PembelianForm';
+import PenjualanForm from '../components/forms/PenjualanForm';
 import { NotificationContext } from '../utils/context';
 
 
@@ -20,6 +21,7 @@ export default function Barang() {
 
   const [barangList, setBarangList] = useState([]);
   const [openBeli, setOpenBeli] = useState(false);
+  const [openJual, setOpenJual] = useState(false);
   const [selectedBarang, setSelectedBarang] = useState({});
   const [modalTitle, setModalTitle] = useState('');
 
@@ -30,6 +32,14 @@ export default function Barang() {
     setModalTitle('Rekam pembelian ' + data.NamaBarang);
   };
   const handleCloseBeli = () => setOpenBeli(false);
+
+  const handleOpenJual = (data) => {
+    setOpenJual(true);
+    setSelectedBarang(data);
+
+    setModalTitle('Rekam pembelian ' + data.NamaBarang);
+  };
+  const handleCloseJual = () => setOpenJual(false);
 
   useEffect(() => {
     async function barang() {
@@ -113,6 +123,7 @@ export default function Barang() {
                         variant="outlined" 
                         color="success" 
                         startIcon={<RemoveCircleIcon />}
+                        onClick={() => handleOpenJual(barang)}
                       >
                         Jual
                       </Button>
@@ -131,6 +142,14 @@ export default function Barang() {
         type='create'
         open={openBeli} 
         onClose={handleCloseBeli} 
+        modalContent={selectedBarang} 
+        title={modalTitle} 
+      />
+
+        <PenjualanForm 
+        type='create'
+        open={openJual} 
+        onClose={handleCloseJual} 
         modalContent={selectedBarang} 
         title={modalTitle} 
       />

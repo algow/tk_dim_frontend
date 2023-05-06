@@ -57,3 +57,40 @@ export const postPembelian = (data) => {
     return res.data;
   });
 }
+
+export const postPenjualan = (data) => {
+  return axios({
+    method: 'post',
+    url: API.penjualan(),
+    headers: {
+      Authorization: getUserData()['Token']
+    },
+    data
+  }).then(res => {
+    return res.data;
+  });
+}
+
+export const getPenjualan = () => {
+  return axios({
+    method: 'get',
+    url: API.penjualan(),
+    headers: {
+      Authorization: getUserData()['Token']
+    }
+  }).then(res => {
+    return res.data;
+  });
+}
+
+export const getPelanggan = (data) => {
+  return axios({
+    method: 'get',
+    url: API.pelanggan(),
+    headers: {
+      Authorization: getUserData()['Token']
+    },
+  }).then(res => {
+    return res.data;
+  });
+}

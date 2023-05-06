@@ -18,6 +18,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LoginIcon from '@mui/icons-material/Login';
 import {useNavigate} from "react-router-dom";
 import Pembelian from '../views/Pembelian';
+import Penjualan from '../views/Penjualan';
 import HomeIcon from '@mui/icons-material/Home';
 
 
@@ -40,6 +41,10 @@ export default function Album() {
     {
       path: "/pembelian",
       element: <Pembelian />
+    },
+    {
+      path: "/penjualan",
+      element: <Penjualan />
     },
   ];
   
@@ -84,7 +89,7 @@ export default function Album() {
                     <IconButton 
                       color="inherit" 
                       aria-label="penjualan"
-                      // onClick={() => navigate('/projects')}  
+                      onClick={() => navigate('/penjualan')}  
                     >
                       <RemoveCircleIcon />
                     </IconButton>
