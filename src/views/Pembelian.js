@@ -150,17 +150,17 @@ export default function Pembelian() {
           <Button 
             variant="outlined"
             onClick={async () => {
-              try {
-                const pembelian = await deletePembelian(data);
+              // try {
+              //   const pembelian = await deletePembelian(data);
           
-                if(pembelian.error) {
-                  onOpenMessage(getNotifData(6));
-                } else {
-                  onOpenMessage(getNotifData(2));
-                }
-              } catch (error) {
-                onOpenMessage(getNotifData(3));
-              } 
+              //   if(pembelian.error) {
+              //     onOpenMessage(getNotifData(6));
+              //   } else {
+              //     onOpenMessage(getNotifData(2));
+              //   }
+              // } catch (error) {
+              //   onOpenMessage(getNotifData(3));
+              // } 
 
             } }
           >
