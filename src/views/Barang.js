@@ -14,16 +14,27 @@ import { Divider } from '@mui/material';
 import PembelianForm from '../components/forms/PembelianForm';
 import PenjualanForm from '../components/forms/PenjualanForm';
 import { NotificationContext } from '../utils/context';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import RekomForm from '../components/forms/RekomForm';
 
 
 export default function Barang() {
   const {onOpenMessage} = useContext(NotificationContext);
 
   const [barangList, setBarangList] = useState([]);
+  const [openRekom, setOpenRekom] = useState(false);
   const [openBeli, setOpenBeli] = useState(false);
   const [openJual, setOpenJual] = useState(false);
   const [selectedBarang, setSelectedBarang] = useState({});
   const [modalTitle, setModalTitle] = useState('');
+
+  const handleOpenRekom = (data) => {
+    setOpenRekom(true);
+    setSelectedBarang(data);
+
+    setModalTitle('Rekomendasi pembelian ' + data.NamaBarang);
+  };
+  const handleCloseRekom = () => setOpenRekom(false);
 
   const handleOpenBeli = (data) => {
     setOpenBeli(true);
@@ -104,14 +115,25 @@ export default function Barang() {
                   {
                       (hakAkses.beli.includes(akses))
                       ?
-                      <Button 
-                        size="small" 
-                        variant="outlined" 
-                        startIcon={<AddCircleIcon />}
-                        onClick={() => handleOpenBeli(barang)}
-                      >
-                        Beli
-                      </Button>
+                      <>
+                        <Button 
+                          size="small" 
+                          variant="outlined" 
+                          color="warning"
+                          startIcon={<VisibilityIcon />}
+                          onClick={() => handleOpenRekom(barang)}
+                        >
+                          Rekomendasi
+                        </Button>
+                        <Button 
+                          size="small" 
+                          variant="outlined" 
+                          startIcon={<AddCircleIcon />}
+                          onClick={() => handleOpenBeli(barang)}
+                        >
+                          Beli
+                        </Button>
+                      </>
                       :
                       null
                     }
@@ -146,10 +168,18 @@ export default function Barang() {
         title={modalTitle} 
       />
 
-        <PenjualanForm 
+      <PenjualanForm 
         type='create'
         open={openJual} 
         onClose={handleCloseJual} 
+        modalContent={selectedBarang} 
+        title={modalTitle} 
+      />
+
+      <RekomForm
+        type='create'
+        open={openRekom} 
+        onClose={handleCloseRekom} 
         modalContent={selectedBarang} 
         title={modalTitle} 
       />

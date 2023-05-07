@@ -86,3 +86,15 @@ export function getNotifData(i) {
 
   return notifRef[i];
 }
+
+export const toQueryString = (url, params) => {
+  let newUrl = `${url}?`;
+
+  for (const [key, value] of Object.entries(params)) {
+    if(value !== undefined) {
+      newUrl += `${key}=${value}&`;
+    }
+  }
+
+  return newUrl;
+}

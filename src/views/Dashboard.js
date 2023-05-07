@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { getLaba, getStok} from '../utils/actions';
 import { getNotifData, ribuanSatuan } from '../utils/utils';
-import { Divider, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
+import { Divider, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { NotificationContext } from '../utils/context';
 import { useNavigate } from 'react-router-dom';
 
@@ -95,7 +95,7 @@ export default function Dashboard() {
           <Divider variant="middle" />
 
           <Grid container spacing={4} sx={{ mt: 1 }}>
-          <TableContainer component={Paper}>
+            <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                   <TableRow>

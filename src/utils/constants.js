@@ -1,7 +1,7 @@
 export const JWT_LOCAL = 'TOKEN';
 export const USER_DATA = 'UDATA';
 
-const parent = 'http://localhost/tk_dim';
+const parent = 'http://10.100.244.78/tk_dim';
 
 export const API = {
   'login': () => parent + '/login',
@@ -13,5 +13,6 @@ export const API = {
   'updatePembelian': () => parent + '/pembelian-update',
   'deletePembelian': () => parent + '/pembelian-delete',
   'laba': () => parent + '/labarugi',
-  'stok': () => parent + '/stok'
+  'stok': () => parent + '/stok',
+  'rekomendasi': () => parent + '/rekomendasi'
 }

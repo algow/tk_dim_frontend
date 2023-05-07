@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {API} from './constants';
-import { getUserData } from './utils';
+import { getUserData, toQueryString } from './utils';
 
 export const postLogin = (data) => {
   return axios({
@@ -138,6 +138,20 @@ export const getStok = () => {
   return axios({
     method: 'get',
     url: API.stok(),
+    headers: {
+      Authorization: getUserData()['Token']
+    }
+  }).then(res => {
+    return res.data;
+  });
+}
+
+export const getRekomendasi = (params) => {
+  const url = toQueryString(API.rekomendasi(), params);
+
+  return axios({
+    method: 'get',
+    url,
     headers: {
       Authorization: getUserData()['Token']
     }
