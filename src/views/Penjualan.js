@@ -86,7 +86,6 @@ export default function Penjualan() {
                   <TableCell align="center">Jumlah Penjualan</TableCell>
                   <TableCell align="center">Harga Satuan</TableCell>
                   <TableCell align="center">Nilai Penjualan</TableCell>
-                  <TableCell align="center">Aksi</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -102,26 +101,8 @@ export default function Penjualan() {
                     <TableCell align="left">{penjualan.DijualPada}</TableCell>
                     <TableCell align="left">{penjualan.Satuan}</TableCell>
                     <TableCell align="right">{penjualan.JumlahPenjualan}</TableCell>
-                    <TableCell align="right">{ribuanSatuan(penjualan.HargaBeli)}</TableCell>
+                    <TableCell align="right">{ribuanSatuan(penjualan.HargaJual)}</TableCell>
                     <TableCell align="right">{ribuanSatuan(penjualan.NilaiPenjualan)}</TableCell>
-                    <TableCell align="left">
-                      <Stack direction="row" spacing={1}>
-                        <IconButton 
-                          color="primary" 
-                          aria-label="ubah"
-                          onClick={() => handleOpenEdit(penjualan)}
-                        >
-                          <EditIcon />
-                        </IconButton>
-                        <IconButton 
-                          color="warning" 
-                          aria-label="hapus"
-                          onClick={() => handleOpenDelete()}
-                        >
-                          <DeleteIcon />
-                        </IconButton> 
-                      </Stack>
-                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

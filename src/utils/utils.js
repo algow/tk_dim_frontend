@@ -78,6 +78,10 @@ export function getNotifData(i) {
       type: 'warning',
       message: 'Akses tidak diperbolehkan'
     },
+    {
+      type: 'success',
+      message: 'Data berhasil dihapus'
+    },
   ];
 
   return notifRef[i];

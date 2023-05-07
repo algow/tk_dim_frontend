@@ -37,7 +37,7 @@ export default function Barang() {
     setOpenJual(true);
     setSelectedBarang(data);
 
-    setModalTitle('Rekam pembelian ' + data.NamaBarang);
+    setModalTitle('Rekam penjualan ' + data.NamaBarang);
   };
   const handleCloseJual = () => setOpenJual(false);
 

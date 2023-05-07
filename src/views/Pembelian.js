@@ -13,9 +13,32 @@ import PembelianForm from '../components/forms/PembelianForm';
 
 export default function Pembelian() {
   const {onOpenMessage} = useContext(NotificationContext);
+  const navigate = useNavigate();
 
   const [pembelianList, setPembelianList] = useState([]);
-  const navigate = useNavigate();
+  const [openEdit, setOpenEdit] = useState(false);
+  const [selectedPembelian, setSelectedPembelian] = useState({});
+  const [modalTitle, setModalTitle] = useState('');
+  const [openDelete, setOpenDelete] = useState(false);
+
+  const handleOpenDelete = (data) => {
+    setOpenDelete(true);
+    setSelectedPembelian(data);
+
+    setModalTitle(data.NamaBarang);
+  };
+
+  const handleCloseDelete = () => {
+    setOpenDelete(false);
+  };
+
+  const handleOpenEdit = (data) => {
+    setOpenEdit(true);
+    setSelectedPembelian(data);
+
+    setModalTitle('Ubah pembelian ' + data.NamaBarang);
+  };
+  const handleCloseEdit = () => setOpenEdit(false);
 
   useEffect(() => {
     async function pembelian() {
@@ -37,29 +60,7 @@ export default function Pembelian() {
 
       navigate('/');
     });
-  }, []);
-
-  const [openEdit, setOpenEdit] = useState(false);
-  const [selectedPembelian, setSelectedPembelian] = useState({});
-  const [modalTitle, setModalTitle] = useState('');
-  const [openDelete, setOpenDelete] = useState(false);
-
-  const handleOpenDelete = () => {
-    setOpenDelete(true);
-  };
-
-  const handleCloseDelete = () => {
-    setOpenDelete(false);
-  };
-
-  const handleOpenEdit = (data) => {
-    setOpenEdit(true);
-    setSelectedPembelian(data);
-
-    setModalTitle('Ubah pembelian ' + data.NamaBarang);
-  };
-  const handleCloseEdit = () => setOpenEdit(false);
-
+  }, [navigate, onOpenMessage]);
 
   return (
     <>
@@ -116,7 +117,7 @@ export default function Pembelian() {
                         <IconButton 
                           color="warning" 
                           aria-label="hapus"
-                          onClick={() => handleOpenDelete()}
+                          onClick={() => handleOpenDelete(pembelian)}
                         >
                           <DeleteIcon />
                         </IconButton> 
@@ -144,24 +145,25 @@ export default function Pembelian() {
         aria-labelledby="alert-dialog-title"
       >
         <DialogTitle id="alert-dialog-title">
-          Apakah anda yakin akan menghapus record ini?
+          {`Apakah anda yakin akan menghapus record pembelian ${selectedPembelian.NamaBarang}?`}
         </DialogTitle>
         <DialogActions>
           <Button 
             variant="outlined"
             onClick={async () => {
-              // try {
-              //   const pembelian = await deletePembelian(data);
+              try {
+                const pembelian = await deletePembelian(selectedPembelian);
           
-              //   if(pembelian.error) {
-              //     onOpenMessage(getNotifData(6));
-              //   } else {
-              //     onOpenMessage(getNotifData(2));
-              //   }
-              // } catch (error) {
-              //   onOpenMessage(getNotifData(3));
-              // } 
+                if(pembelian.error) {
+                  onOpenMessage(getNotifData(6));
+                } else {
+                  onOpenMessage(getNotifData(9));
+                }
+              } catch (error) {
+                onOpenMessage(getNotifData(3));
+              } 
 
+              handleCloseDelete();
             } }
           >
             Hapus

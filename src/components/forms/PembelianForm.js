@@ -6,8 +6,11 @@ import { NotificationContext } from "../../utils/context";
 import { getNotifData } from "../../utils/utils";
 
 
-function PembelianForm(props) {
+function PembelianForm(props) {  
   const [supplierList, setSupplierList] = useState([]);
+
+  const [currJumlah, setCurrJumlah] = useState('');
+  const [currHarga, setCurrHarga] = useState('');
   const [selectedSupplier, setSelectedSupplier] = useState('');
 
   const {onOpenMessage} = useContext(NotificationContext);
@@ -30,6 +33,8 @@ function PembelianForm(props) {
       if(props.type === 'create') {
         pembelian = await postPembelian(data);
       } else if (props.type === 'update') {
+        const IdPembelian = props.data?.IdPembelian;
+        data['id_pembelian'] = parseInt(IdPembelian);
         pembelian = await updatePembelian(data);
       } else {
         pembelian['error'] = true;
@@ -48,7 +53,9 @@ function PembelianForm(props) {
   };
 
   useEffect(() => {
-    if(props.data?.IdSupplier) {
+    if(props.type === 'update') {
+      setCurrJumlah(props.data?.JumlahPembelian)
+      setCurrHarga(props.data?.HargaBeli)  
       setSelectedSupplier(props.data.IdSupplier);
     }
 
@@ -56,20 +63,25 @@ function PembelianForm(props) {
       const data = await getSupplier();
 
       if(data.error) {
-        console.log(data.details);
+        onOpenMessage(getNotifData(3));
       } else {
         setSupplierList(data.data);
       }  
     }
 
     supplier().catch(err => {
-      // console.log(err);
       onOpenMessage(getNotifData(3));
     });
-  }, []);
+  }, [onOpenMessage, props.data?.HargaBeli, props.data.IdSupplier, props.data?.JumlahPembelian, props.type]);
 
-  const handleChange = (event) => {
-    setSelectedSupplier(event.target.value);
+  const handleChange = (event, type) => {
+    const actions = {
+      jumlah: (e) => setCurrJumlah(e.target.value),
+      harga: (e) => setCurrHarga(e.target.value),
+      supplier: (e) => setSelectedSupplier(e.target.value),
+    }
+
+    actions[type](event);
   };
 
 
@@ -85,8 +97,9 @@ function PembelianForm(props) {
           name="jumlah"
           type="number"
           autoComplete="jumlah"
-          value={props.data?.JumlahPembelian}
+          value={currJumlah}
           autoFocus
+          onChange={(event) => handleChange(event, 'jumlah')}
         />
         <TextField
           margin="normal"
@@ -94,10 +107,12 @@ function PembelianForm(props) {
           fullWidth
           name="harga_satuan"
           label="Harga Satuan"
-          value={props.data?.HargaBeli}
+          value={currHarga}
           type="number"
           id="harga_satuan"
           autoComplete="harga_satuan"
+          autoFocus
+          onChange={(event) => handleChange(event, 'harga')}
         />
         <InputLabel>Pilih Supplier</InputLabel>
         <Select
@@ -106,7 +121,7 @@ function PembelianForm(props) {
           fullWidth
           value={selectedSupplier}
           label="Pilih Supplier"
-          onChange={handleChange}
+          onChange={(event) => handleChange(event, 'supplier')}
         >
           {
             supplierList.map( (supplier, i) => {
