@@ -5,7 +5,6 @@ import { getSupplier, postPembelian, updatePembelian } from "../../utils/actions
 import { NotificationContext } from "../../utils/context";
 import { getNotifData } from "../../utils/utils";
 
-
 function PembelianForm(props) {  
   const [supplierList, setSupplierList] = useState([]);
 
@@ -83,7 +82,6 @@ function PembelianForm(props) {
 
     actions[type](event);
   };
-
 
   return(
     <>

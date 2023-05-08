@@ -83,6 +83,7 @@ function RekomForm(props) {
                   <TableCell align="center">Nama Supplier</TableCell>
                   <TableCell align="center">Harga Satuan</TableCell>
                   <TableCell align="center">Diskon</TableCell>
+                  <TableCell align="center">Harga Satuan Setelah Diskon</TableCell>
                   <TableCell align="center">Minimal Pembelian</TableCell>
                   <TableCell align="center">Maksimal Pembelian</TableCell>
                   <TableCell align="center">Jumlah Beli</TableCell>
@@ -99,6 +100,7 @@ function RekomForm(props) {
                     <TableCell align="left">{rekom.toko}</TableCell>
                     <TableCell align="right">{ribuanSatuan(rekom.harga)}</TableCell>
                     <TableCell align="right">{rekom.diskon}</TableCell>
+                    <TableCell align="right">{ribuanSatuan(rekom.harga_net)}</TableCell>
                     <TableCell align="right">{rekom.min_pembelian}</TableCell>
                     <TableCell align="right">{rekom.max_pembelian}</TableCell>
                     <TableCell align="right">{rekom.jumlah_beli}</TableCell>
@@ -106,7 +108,7 @@ function RekomForm(props) {
                   </TableRow>
                 ))}
                 <TableRow>
-                  <TableCell align="center" colSpan={6}>TOTAL</TableCell>
+                  <TableCell align="center" colSpan={7}>TOTAL</TableCell>
                   <TableCell align="right">{ribuanSatuan(kuantitas)}</TableCell>
                   <TableCell align="right">{ribuanSatuan(totalBiaya)}</TableCell>
                 </TableRow>
